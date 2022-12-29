@@ -21,7 +21,7 @@ services:
       TZ: Asia/Seoul
 
     volumes:
-      - ./mysql-init.d:/docker-entrypoint-initdb.d
+      - ./db-mysql:/var/lib/mysql
 
     ports:
       - '3306:3306'
