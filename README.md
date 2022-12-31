@@ -34,7 +34,6 @@ Docker는 만들어진 이미지를 저장하고, 검색하고, 받아올 수 �
 - 도커 이미지는 Docker Hub를 통해 버전 관리 및 배포가 가능하다. (github와 유사)
 - Dockerfile이라는 파일을 통해 이미지를 생성할 수 있다.
 
-
 ### Base Image
 
 우리가 기본적으로 run시키는 이미지를 Base Image라고 한다.
@@ -44,6 +43,8 @@ Docker는 만들어진 이미지를 저장하고, 검색하고, 받아올 수 �
 Base Image는 바꿀 순 없지만<strong>(읽기 전용)</strong> 여기에 추가/삭제 등 덧붙이는 수정은 가능하다.<strong>(쓰기 가능)</strong>
 
 ubuntu라는 Base Image에 git을 install 한 뒤, commit 하면 git이 포함된 새로운 ubuntu 이미지가 생성된다.(Custom image)
+
+<br>
 
 ## 이미지 생성 방법
 
@@ -78,21 +79,44 @@ commit 방식으로 이미지를 생성하면 따로 기록해두지 않는 이�
 
 #### Dockerfile 핵심 명령어
 
-`FROM` : 기본 이미지 <br>
-`RUN` : 쉘 명령어 실행 <br>
-`CMD` : 컨테이너 기본 명령어 (ENTRYPOINT의 인자로 사용) <br>
-`EXPOSE` : 오픈되는 포트 정보 <br>
+`FROM` : Base Image 지정 <br>
+`RUN` : 이미지 빌드 싱 실행할 쉘 명령어 실행 <br>
+`CMD` : 컨테이너 실행 시 최초로 실행할 명령어  <br>
+`EXPOSE` : 컨테이너에서 사용하는 포트 정보 <br>
 `ENV` : 환경변수 설정 <br>
 `ADD` : 파일 또는 디렉터리 추가 (URL/ZIP 사용가능) <br>
-`COPY` : 파일 또는 디렉터리 추가 <br>
-`ENTRYPOINT` : 컨테이너 기본 실행 명령어 <br>
+`COPY` : 호스트 측에 있는 파일을 이미지로 복사 <br>
+`ENTRYPOINT` : 컨테이너 실행 시 최초로 실행할 명령어(CMD와 유사) <br>
 `VOLUME` : 외부 마운트 포인트 설정 <br>
 `USER` : RUN, CMD, ENTRYPOINT를 실행하는 사용자 <br>
-`WORKDIR` : 작업 디렉토리 설정 <br>
+`WORKDIR` : 작업 디렉토리 변경 <br>
 `ARGS` : 빌드타임 환경 변수 설정 <br>
 `LABEL` : key-value 데이터 <br>
 `ONBUILD` : 다른 빌드의 베이스로 사용될 때 사용하는 명령어 <br>
 
+#### ENTRYPOINT와 CMD 차이
+<strong>CMD</strong>는 docker run 시점에서 변경이 가능 <br>
+```
+# dockerfile_cmd
+
+FROM ubuntu:16.04
+
+CMD ["echo", "CMD test"]
+```
+`docker run cmd_test echo CMD hello` 시 "CMD test"가 아닌 "hello"가 출력된다.
+
+
+<strong>ENTRYPOINT</strong>는 docker run 시점에서 무조건 실행된다.
+```
+# dockerfile_entrypoint
+
+FROM ubuntu:16.04
+
+ENTRYPOINT ["echo", "ENTRYPOINT test"]
+```
+`docker run entrypoint_test echo hello` 시 "ENTRYPOINT test"에 echo hello가 붙어 "ENTRYPOINT test echo hello"라고 출력된다.
+
+따라서 ENTRYPOINT는 컨테이너가 최초에 꼭 실행해야만 하는 명령어가 있을 때, CMD는 컨테이너 실행 시 시작되는 명령어지만 변경할 수 있을 때 활용하면 된다.
 
 #### Dockerfile을 통해 Image 빌드하기
 
@@ -207,6 +231,8 @@ run하게 될 Image를 지정한다.
 예시 코드에선 `mysql:8.0` 이라는 이미지를 선택하였는데 <br>
 이미지의 이름은 search 명령어를 통해 서칭이 가능하다.
 
+<br>
+
 ### :: search
 도커 이미지를 찾는 명령어
 
@@ -220,6 +246,7 @@ docker search mysql
 
 Stars는 Docker Hub를 사용하는 누군가가 해당 레퍼지토리를 즐겨찾기 한 것이다.
 
+<br>
 
 ### :: pull
 도커 이미지 다운로드 명령어
@@ -242,6 +269,7 @@ pull 명령어는 기본적으로 Docker Hub에서 다운 받는 것을 default�
 docker pull exampleUrl/mysql:8.0
 ```
 
+<br>
 
 ### :: ps
 도커 컨테이너 리스트를 반환해주는 명령어
@@ -280,13 +308,17 @@ docker ps -f "name=app"
 #### -s
 컨테이너 사이즈를 표기한다.
 
-### logs
+<br>
+
+### :: logs
 도커 컨테이너의 로그를 확인할 수 있는 명령어
 
 예시 코드
 ```
 docker logs [컨테이너명]
 ```
+
+<br>
 
 ### :: images
 다운받은 도커 이미지를 확인할 수 있는 명령어
@@ -295,6 +327,8 @@ docker logs [컨테이너명]
 ```
 docker images
 ```
+
+<br>
 
 ### :: stop
 컨테이너 ID를 입력해 docker를 중지할 수 있습니다. 여러 개를 중지하고 싶은 경우 컨테이너 ID를 띄어쓰기로 구별하면 됩니다. 
@@ -307,6 +341,8 @@ docker stop 88000ba1d2 100084dc12
 docker stop은 <strong>Gracefully(우아)하게 작업을 중지</strong>시킵니다. 이 뜻은, 하고 있는 작업을 마친 후에 컨테이너를 중지한다는 것입니다.
 
 반대로 kill 명령어는 작업을 기다리지 않고 종료시킵니다.
+
+<br>
 
 ### rm
 컨테이너 이름 또는 컨테이너ID로 컨테이너를 삭제하는 명령어
