@@ -10,7 +10,7 @@
 
 <hr>
 
-## 🐋 Docker Hub
+# 🐋 Docker Hub
 
 https://hub.docker.com/
 
@@ -20,11 +20,11 @@ Docker는 만들어진 이미지를 저장하고, 검색하고, 받아올 수 �
 
 <hr>
 
-## 🐋 Docker 이미지 & 컨테이너
+# 🐋 Docker 이미지 & 컨테이너
 
 ## 📃 도커 이미지 (Docker Image)
 
-도커에서 서비스 운영에 필요한 서버 프로그램, 소스 코드 및 라이브러리, 컴파일된 실행 파일을 묶는 형태를 <strong>Docker</strong> Image 라고 한다.
+도커에서 서비스 운영에 필요한 서버 프로그램, 소스 코드 및 라이브러리, 컴파일된 실행 파일을 묶는 형태를 <strong>Docker Image</strong> 라고 한다.
 
 즉 특정 프로세스를 실행하기 위한(컨테이너 생성(실행)에 필요한) 모든 파일과 설정값을 지닌 것
 
@@ -45,13 +45,13 @@ Base Image는 바꿀 순 없지만<strong>(읽기 전용)</strong> 여기에 추
 
 ubuntu라는 Base Image에 git을 install 한 뒤, commit 하면 git이 포함된 새로운 ubuntu 이미지가 생성된다.(Custom image)
 
-### 이미지 만들기
+## 이미지 생성 방법
 
+### 1. commit을 통한 이미지 생성
 예시 코드
 ```
 docker commit [컨테이너명] [이미지명]:[태그]
 ```
-
 
 예시 코드를 활용하여 위와 같은 상황처럼 ubuntu 컨테이너를 실행하고 내부에 git이 설치된 상태를 Image로 만들어보자
 
@@ -69,6 +69,70 @@ git —version // git 설치 확인
 
 docker commit ubuntuGit ubuntu:git // git태그의 ubuntu 이미지 생성 
 ```
+
+### 2. Dockerfile을 통한 이미지 생성
+
+commit 방식으로 이미지를 생성하면 따로 기록해두지 않는 이상 시간이 지나고 이미지가 만들어지는 과정을 확인할 수 없다.
+
+하지만 <strong>Dockerfile</strong>로 이미지를 생성하면 이미지 생성 과정을 History로 볼 수 있어 편리하다.
+
+#### Dockerfile 핵심 명령어
+
+`FROM` : 기본 이미지 <br>
+`RUN` : 쉘 명령어 실행 <br>
+`CMD` : 컨테이너 기본 명령어 (ENTRYPOINT의 인자로 사용) <br>
+`EXPOSE` : 오픈되는 포트 정보 <br>
+`ENV` : 환경변수 설정 <br>
+`ADD` : 파일 또는 디렉터리 추가 (URL/ZIP 사용가능) <br>
+`COPY` : 파일 또는 디렉터리 추가 <br>
+`ENTRYPOINT` : 컨테이너 기본 실행 명령어 <br>
+`VOLUME` : 외부 마운트 포인트 설정 <br>
+`USER` : RUN, CMD, ENTRYPOINT를 실행하는 사용자 <br>
+`WORKDIR` : 작업 디렉토리 설정 <br>
+`ARGS` : 빌드타임 환경 변수 설정 <br>
+`LABEL` : key-value 데이터 <br>
+`ONBUILD` : 다른 빌드의 베이스로 사용될 때 사용하는 명령어 <br>
+
+
+#### Dockerfile을 통해 Image 빌드하기
+
+```
+docker build [옵션] [이미지명]:[태그] [빌드 컨텍스트]
+```
+
+#### 옵션
+
+`-t` : 도커 이미지의 이름과 태그를 지정 <br>
+`-f [Dockerfile 위치]` : 다른 위치의 Dockerfile 파일 사용할 때 사용할 Dockerfile 파일의 경로 지정 <br>
+
+#### 빌드 컨텍스트
+
+docker build 명령어를 실행했을 때, 현재 작업 디렉토리를 <strong>build context</strong> 라고 한다.
+
+Dockerfile로부터 이미지 빌드에 필요한 정보를 도커 데몬에게 전달하기 위한 목적을 가진다.
+
+- 현재 디렉터리를 의미하는 . 을 주로 사용
+- 필요한 경우 다른 디렉토리를 지정할 수도 있음
+
+
+#### 명령어 활용하여 위와 똑같은 git이 설치된 ubuntu 이미지 Dockerfile 생성
+
+Dockerfile 
+```
+FROM ubuntu:latest
+
+RUN apt-get update
+RUN apt-get install -y git
+```
+
+Dockerfile 사용하여 Image 생성
+```
+cd [Dockerfile위치]
+
+docker build -t ubunut:git .
+```
+
+<hr>
 
 ## 📃 도커 컨테이너 (Docker Container)
 
