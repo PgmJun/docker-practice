@@ -99,8 +99,7 @@ commit 방식으로 이미지를 생성하면 따로 기록해두지 않는 이�
 ```
 docker build [옵션] [이미지명]:[태그] [빌드 컨텍스트]
 ```
-
-#### 옵션
+<strong>옵션</strong>
 
 `-t` : 도커 이미지의 이름과 태그를 지정 <br>
 `-f [Dockerfile 위치]` : 다른 위치의 Dockerfile 파일 사용할 때 사용할 Dockerfile 파일의 경로 지정 <br>
@@ -125,7 +124,9 @@ RUN apt-get update
 RUN apt-get install -y git
 ```
 
-Dockerfile 사용하여 Image 생성
+#### Dockerfile 사용하여 Image 생성
+
+Terminal
 ```
 cd [Dockerfile위치]
 
