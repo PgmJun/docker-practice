@@ -155,7 +155,7 @@ docker build -t ubunut:git .
 
 # 🐋 Docker 기본 명령어
 
-### run
+### :: run
 Docker 컨테이너를 실행하는 명령어
 
 예시 코드
@@ -166,8 +166,6 @@ docker run --rm -d -p 8080:8080 \
 --name mysql \
 mysql:8.0
 ```
-#### run
-docker를 통해 이미지를 실행할 때 사용한다. (예시 코드에서 이미지명은 <strong>mysql:8.0</strong>)
 
 #### --rm
 도커의 컨테이너가 종료시 컨테이너를 삭제시키는 옵션이다.
@@ -209,7 +207,7 @@ run하게 될 Image를 지정한다.
 예시 코드에선 `mysql:8.0` 이라는 이미지를 선택하였는데 <br>
 이미지의 이름은 search 명령어를 통해 서칭이 가능하다.
 
-### search
+### :: search
 도커 이미지를 찾는 명령어
 
 예시 코드
@@ -223,7 +221,7 @@ docker search mysql
 Stars는 Docker Hub를 사용하는 누군가가 해당 레퍼지토리를 즐겨찾기 한 것이다.
 
 
-### pull
+### :: pull
 도커 이미지 다운로드 명령어
 
 예시 코드
@@ -245,7 +243,7 @@ docker pull exampleUrl/mysql:8.0
 ```
 
 
-### ps
+### :: ps
 도커 컨테이너 리스트를 반환해주는 명령어
 
 예시 코드
@@ -290,7 +288,7 @@ docker ps -f "name=app"
 docker logs [컨테이너명]
 ```
 
-### images
+### :: images
 다운받은 도커 이미지를 확인할 수 있는 명령어
 
 예시 코드
@@ -298,7 +296,7 @@ docker logs [컨테이너명]
 docker images
 ```
 
-### stop
+### :: stop
 컨테이너 ID를 입력해 docker를 중지할 수 있습니다. 여러 개를 중지하고 싶은 경우 컨테이너 ID를 띄어쓰기로 구별하면 됩니다. 
 
 예시 코드
