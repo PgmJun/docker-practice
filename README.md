@@ -150,11 +150,9 @@ docker build -t ubunut:git .
 
 
 
-
-
 <hr>
 
-## 🐋 Docker 기본 명령어
+# 🐋 Docker 기본 명령어
 
 ### run
 Docker 컨테이너를 실행하는 명령어
@@ -323,7 +321,7 @@ docker rm [컨테이너ID]
 
 <hr>
 
-## 🐋 Docker 볼륨(Volume)이란?
+# 🐋 Docker 볼륨(Volume)이란?
 <strong> docker 컨테이너(container)에 쓰여진 데이터 </strong> 는 기본적으로 컨테이너가 삭제될 때 함께 사라지게 된다. <br>
 이는 컨테이너를 시작한 후 만들어진 파일이 persistent filesystem에 저장된 것이 아니라 in-memory file system에 쓰이는 것이기 때문에 컨테이너 종료시 삭제되는 것이다. <br>
 Docker를 사용하다보면 애플리케이션이 컨테이너의 생명 주기와 관계없이 데이터를 영속적으로 저장을 해야하며 <br>
@@ -331,7 +329,7 @@ Docker를 사용하다보면 애플리케이션이 컨테이너의 생명 주기
 이처럼 Docker 컨테이너의 생명 주기와 관계없이 데이터를 영속적으로 저장할 수 있도록 Docker는 두가지 옵션을 제공한다. <br>
 그 중 하나가 Docker 볼륨(volume)이다. <br>
 
-### 볼륨의 종류
+# 볼륨의 종류
 <strong>익명 볼륨</strong> <br>
 익명 볼륨이란 컨테이너가 존재하는 동안에만 실제로 존재하는 볼륨을 의미한다. <br>
 
@@ -340,5 +338,5 @@ Docker를 사용하다보면 애플리케이션이 컨테이너의 생명 주기
 
 <hr>
 
-### reference
+## reference
 https://hoon93.tistory.com/48
