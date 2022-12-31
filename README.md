@@ -56,7 +56,7 @@ docker commit [컨테이너명] [이미지명]:[태그]
 예시 코드를 활용하여 위와 같은 상황처럼 ubuntu 컨테이너를 실행하고 내부에 git이 설치된 상태를 Image로 만들어보자
 
 ```
-docker run -it —name ubuntuGit ubuntu:latest bash // ubuntu lastest버전을 ubuntuGit이라는 컨테이너명으로 실행
+docker run -it —-name ubuntuGit ubuntu:latest bash // ubuntu lastest버전을 ubuntuGit이라는 컨테이너명으로 실행
 
 (## Ubuntu 실행 ##)
 
