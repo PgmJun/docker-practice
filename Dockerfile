@@ -1,6 +1,6 @@
 FROM azul/zulu-openjdk:11
 
-RUN apt-get update && apt-get -y install sudo
+VOLUME /tmp
 
 ARG JAR_FILE="build/libs/*.jar"
 
