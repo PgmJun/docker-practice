@@ -8,7 +8,7 @@ public class HealthController {
 
     @GetMapping("")
     public String healthCheck() {
-        return "ping-pong";
+        return "ping-pong!";
     }
 
 }
