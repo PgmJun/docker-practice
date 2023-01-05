@@ -6,9 +6,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HealthController {
 
-    @GetMapping("")
+    @GetMapping("ping")
     public String healthCheck() {
-        return "ping-pong!";
+        return "pong!";
+    }
+
+    @GetMapping("")
+    public String hello() {
+        return "밧융 안";
     }
 
 }
