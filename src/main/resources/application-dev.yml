@@ -24,5 +24,11 @@ spring:
     generate-ddl: true
     open-in-view: false
 
+cloud:
+  aws:
+  credentials:
+    accessKey : ${AWS_ACCESS_KEY}
+    secretKey : ${AWS_SECRET_ACCESS_KEY}
+
 server:
   port: 8080
