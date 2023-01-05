@@ -2,9 +2,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://database-mysql:3306/dockerdb?autoReconnect=true
-    username: root
-    password: 1234
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
   devtools:
     restart:
       enabled: true
@@ -17,7 +17,7 @@ spring:
         format_sql: true
 
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
