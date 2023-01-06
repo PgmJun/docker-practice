@@ -13,7 +13,7 @@ public class HealthController {
 
     @GetMapping("")
     public String hello() {
-        return "밧융 안";
+        return "밧융 안녕!!!";
     }
 
 }
